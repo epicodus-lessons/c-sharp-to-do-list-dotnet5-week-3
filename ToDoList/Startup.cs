@@ -14,11 +14,11 @@ namespace ToDoList
     {
       var builder = new ConfigurationBuilder()
           .SetBasePath(env.ContentRootPath)
-          .AddEnvironmentVariables();
+          .AddJsonFile("appsettings.json");
       Configuration = builder.Build();
     }
 
-    public IConfigurationRoot Configuration { get; }
+    public IConfigurationRoot Configuration { get; set; }
 
     public void ConfigureServices(IServiceCollection services)
     {
