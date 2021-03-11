@@ -18,7 +18,7 @@ namespace ToDoList.Controllers
 
     public ActionResult Index()
     {
-      List<Item> model = _db.Items.Include(items => items.Category).ToList();
+      List<Item> model = _db.Items.Include(item => item.Category).ToList();
       return View(model);
     }
 
@@ -38,13 +38,13 @@ namespace ToDoList.Controllers
 
     public ActionResult Details(int id)
     {
-      Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      Item thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
       return View(thisItem);
     }
 
     public ActionResult Edit(int id)
     {
-      var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
       ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
       return View(thisItem);
     }
@@ -59,14 +59,14 @@ namespace ToDoList.Controllers
 
     public ActionResult Delete(int id)
     {
-      var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
       return View(thisItem);
     }
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
       _db.Items.Remove(thisItem);
       _db.SaveChanges();
       return RedirectToAction("Index");
