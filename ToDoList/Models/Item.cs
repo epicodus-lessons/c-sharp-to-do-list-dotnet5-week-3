@@ -39,7 +39,7 @@ namespace ToDoList.Models
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
 
-      cmd.CommandText = @"INSERT INTO items (description) VALUES (@ItemDescription);";
+      cmd.CommandText = "INSERT INTO items (description) VALUES (@ItemDescription);";
       MySqlParameter description = new MySqlParameter();
       description.ParameterName = "@ItemDescription";
       description.Value = this.Description;
@@ -60,7 +60,7 @@ namespace ToDoList.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM items;";
+      cmd.CommandText = "SELECT * FROM items;";
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       while (rdr.Read())
       {
@@ -82,7 +82,7 @@ namespace ToDoList.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM items;";
+      cmd.CommandText = "DELETE FROM items;";
       cmd.ExecuteNonQuery();
       conn.Close();
       if (conn != null)
