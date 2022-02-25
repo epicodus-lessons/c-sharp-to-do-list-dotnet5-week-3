@@ -37,13 +37,13 @@ namespace ToDoList.Models
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
-      var cmd = conn.CreateCommand() as MySqlCommand;
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
 
       cmd.CommandText = "INSERT INTO items (description) VALUES (@ItemDescription);";
-      MySqlParameter description = new MySqlParameter();
-      description.ParameterName = "@ItemDescription";
-      description.Value = this.Description;
-      cmd.Parameters.Add(description);    
+      MySqlParameter param = new MySqlParameter();
+      param.ParameterName = "@ItemDescription";
+      param.Value = this.Description;
+      cmd.Parameters.Add(param);    
       cmd.ExecuteNonQuery();
       Id = (int) cmd.LastInsertedId;
 
@@ -59,15 +59,15 @@ namespace ToDoList.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
 
-      var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = "SELECT * FROM `items` WHERE id = @thisId;";
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = "SELECT * FROM `items` WHERE id = @ThisId;";
 
-      MySqlParameter thisId = new MySqlParameter();
-      thisId.ParameterName = "@thisId";
-      thisId.Value = id;
-      cmd.Parameters.Add(thisId);
+      MySqlParameter param = new MySqlParameter();
+      param.ParameterName = "@ThisId";
+      param.Value = id;
+      cmd.Parameters.Add(param);
 
-      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       int itemId = 0;
       string itemDescription = "";
       while (rdr.Read())
@@ -75,7 +75,7 @@ namespace ToDoList.Models
         itemId = rdr.GetInt32(0);
         itemDescription = rdr.GetString(1);
       }
-      Item foundItem= new Item(itemDescription, itemId);
+      Item foundItem = new Item(itemDescription, itemId);
 
       conn.Close();
       if (conn != null)
@@ -112,7 +112,7 @@ namespace ToDoList.Models
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
-      var cmd = conn.CreateCommand() as MySqlCommand;
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = "DELETE FROM items;";
       cmd.ExecuteNonQuery();
       conn.Close();
