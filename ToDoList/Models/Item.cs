@@ -37,13 +37,13 @@ namespace ToDoList.Models
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
-      var cmd = conn.CreateCommand() as MySqlCommand;
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
 
       cmd.CommandText = "INSERT INTO items (description) VALUES (@ItemDescription);";
-      MySqlParameter description = new MySqlParameter();
-      description.ParameterName = "@ItemDescription";
-      description.Value = this.Description;
-      cmd.Parameters.Add(description);    
+      MySqlParameter param = new MySqlParameter();
+      param.ParameterName = "@ItemDescription";
+      param.Value = this.Description;
+      cmd.Parameters.Add(param);    
       cmd.ExecuteNonQuery();
       Id = (int) cmd.LastInsertedId;
 
@@ -81,7 +81,7 @@ namespace ToDoList.Models
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
-      var cmd = conn.CreateCommand() as MySqlCommand;
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = "DELETE FROM items;";
       cmd.ExecuteNonQuery();
       conn.Close();
